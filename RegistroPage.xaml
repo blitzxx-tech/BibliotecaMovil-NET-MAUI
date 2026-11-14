@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BibliotecaMovil.Models"
+             x:Class="BibliotecaMovil.RegistroPage"
+             Title="Registro de Libro">
+
+    <ScrollView>
+        <!-- Contenedor principal: VerticalStackLayout (Fase 2 / Páginas 3 y 4) -->
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Encabezado con imagen e iconografía -->
+            <Image Source="dotnet_bot.png"
+                   HeightRequest="100"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Registro de Libro"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#1E293B" />
+
+            <Label Text="Completa los datos del libro para añadirlo al catálogo"
+                   FontSize="13"
+                   TextColor="#64748B"
+                   HorizontalOptions="Center"
+                   Margin="0, -8, 0, 8" />
+
+            <!-- Estructura del Formulario usando Grid (Páginas 7 y 18) -->
+            <Border Stroke="#CBD5E1"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16"
+                    BackgroundColor="#F8FAFC">
+                <Grid RowSpacing="12"
+                      ColumnSpacing="12"
+                      RowDefinitions="Auto,Auto,Auto,Auto"
+                      ColumnDefinitions="Auto,*">
+
+                    <!-- Fila 0: Título -->
+                    <Label Grid.Row="0" Grid.Column="0"
+                           Text="Título:"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#334155" />
+                    <Entry x:Name="TxtTitulo"
+                           Grid.Row="0" Grid.Column="1"
+                           Placeholder="Nombre del libro"
+                           TextColor="#0F172A"
+                           PlaceholderColor="#64748B"
+                           BackgroundColor="#F1F5F9"
+                           ClearButtonVisibility="WhileEditing" />
+
+                    <!-- Fila 1: Autor -->
+                    <Label Grid.Row="1" Grid.Column="0"
+                           Text="Autor:"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#334155" />
+                    <Entry x:Name="TxtAutor"
+                           Grid.Row="1" Grid.Column="1"
+                           Placeholder="Nombre del autor"
+                           TextColor="#0F172A"
+                           PlaceholderColor="#64748B"
+                           BackgroundColor="#F1F5F9"
+                           ClearButtonVisibility="WhileEditing" />
+
+                    <!-- Fila 2: Categoría -->
+                    <Label Grid.Row="2" Grid.Column="0"
+                           Text="Categoría:"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#334155" />
+                    <Picker x:Name="PickerCategoria"
+                            Grid.Row="2" Grid.Column="1"
+                            Title="Selecciona una categoría"
+                            TextColor="#0F172A"
+                            TitleColor="#64748B"
+                            BackgroundColor="#F1F5F9"
+                            ItemsSource="{x:Static models:Categorias.Lista}" />
+
+                    <!-- Fila 3: Precio -->
+                    <Label Grid.Row="3" Grid.Column="0"
+                           Text="Precio ($):"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#334155" />
+                    <Entry x:Name="TxtPrecio"
+                           Grid.Row="3" Grid.Column="1"
+                           Placeholder="Ej. 299.00"
+                           TextColor="#0F172A"
+                           PlaceholderColor="#64748B"
+                           BackgroundColor="#F1F5F9"
+                           Keyboard="Numeric" />
+                </Grid>
+            </Border>
+
+            <!-- Botones de Acción usando HorizontalStackLayout (Páginas 5 y 6) -->
+            <HorizontalStackLayout Spacing="12"
+                                   HorizontalOptions="Center"
+                                   Margin="0,10,0,0">
+                <Button Text="Guardar Libro"
+                        BackgroundColor="#16A34A"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        Padding="20,12"
+                        Clicked="OnGuardarClicked" />
+
+                <Button Text="Limpiar"
+                        BackgroundColor="#64748B"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="20,12"
+                        Clicked="OnLimpiarClicked" />
+            </HorizontalStackLayout>
+
+            <!-- Mensaje de confirmación o estado -->
+            <Label x:Name="LblMensaje"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   TextColor="#16A34A"
+                   FontAttributes="Italic"
+                   IsVisible="False" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

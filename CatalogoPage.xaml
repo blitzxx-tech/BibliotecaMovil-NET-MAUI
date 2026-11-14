@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BibliotecaMovil.Models"
+             x:Class="BibliotecaMovil.CatalogoPage"
+             Title="Catálogo de Libros">
+
+    <!-- Grid principal: Fila 0 (Acciones), Fila 1 (Buscador), Fila 2 (Filtros FlexLayout), Fila 3 (Catálogo) -->
+    <Grid RowDefinitions="Auto,Auto,Auto,*"
+          Padding="16"
+          RowSpacing="12">
+
+        <!-- Fila 0: Barra de Acciones usando HorizontalStackLayout (Páginas 5 y 6) -->
+        <Border Grid.Row="0"
+                Stroke="#E2E8F0"
+                StrokeShape="RoundRectangle 10"
+                Padding="8"
+                BackgroundColor="#F1F5F9">
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Button Text="➕ Agregar"
+                        BackgroundColor="#16A34A"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="8"
+                        Clicked="OnAgregarAccionClicked" />
+
+                <Button Text="✏️ Editar"
+                        BackgroundColor="#2563EB"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="8"
+                        Clicked="OnEditarAccionClicked" />
+
+                <Button Text="🗑️ Eliminar"
+                        BackgroundColor="#DC2626"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="8"
+                        Clicked="OnEliminarAccionClicked" />
+
+                <Button Text="🔄 Refrescar"
+                        BackgroundColor="#475569"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="8"
+                        Clicked="OnRefrescarClicked" />
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- Fila 1: Barra de búsqueda en vivo (Página 20) -->
+        <SearchBar x:Name="TxtBuscar"
+                   Grid.Row="1"
+                   Placeholder="🔍 Buscar libro por título o autor..."
+                   TextColor="#0F172A"
+                   PlaceholderColor="#64748B"
+                   BackgroundColor="#F1F5F9"
+                   TextChanged="OnBuscarTextChanged"
+                   CancelButtonColor="#2563EB" />
+
+        <!-- Fila 2: Filtros adaptables usando FlexLayout con Wrap (Páginas 9 y 10) -->
+        <VerticalStackLayout Grid.Row="2" Spacing="6">
+            <Label Text="Categorías"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B" />
+
+            <FlexLayout x:Name="FlexCategorias"
+                        Direction="Row"
+                        Wrap="Wrap"
+                        JustifyContent="Start"
+                        AlignItems="Center">
+                <!-- Botones tipo Chips dentro del FlexLayout -->
+                <Button Text="Todos" Margin="3" CornerRadius="16" BackgroundColor="#2563EB" TextColor="White" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="Tecnología" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="Bases de Datos" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="IA" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="Novela" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="Ciencia" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+                <Button Text="Historia" Margin="3" CornerRadius="16" BackgroundColor="#E2E8F0" TextColor="#1E293B" FontSize="12" Clicked="OnFiltroClicked" />
+            </FlexLayout>
+        </VerticalStackLayout>
+
+        <!-- Fila 3: Lista de Libros usando ScrollView + BindableLayout + AbsoluteLayout (Páginas 11, 12, 13 y 14) -->
+        <ScrollView Grid.Row="3">
+            <VerticalStackLayout x:Name="ContenedorLibros"
+                                 Spacing="12"
+                                 Padding="0,4,0,16"
+                                 BindableLayout.ItemsSource="{Binding LibrosFiltrados}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:Libro">
+                        <Border Stroke="#E2E8F0"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="White"
+                                Padding="12">
+                            <!-- Grid para la estructura interna de la tarjeta -->
+                            <Grid ColumnDefinitions="90,*" ColumnSpacing="12">
+                                
+                                <!-- Columna 0: Portada con insignia superpuesta usando AbsoluteLayout (Página 11 y 12) -->
+                                <AbsoluteLayout Grid.Column="0"
+                                                HeightRequest="100"
+                                                WidthRequest="80"
+                                                BackgroundColor="#F8FAFC">
+                                    <!-- Imagen base del libro -->
+                                    <Image Source="{Binding Imagen}"
+                                           Aspect="AspectFit"
+                                           AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                           AbsoluteLayout.LayoutFlags="All" />
+
+                                    <!-- Insignia flotante 'Nuevo' posicionada libremente si EsNuevo es true -->
+                                    <Border IsVisible="{Binding EsNuevo}"
+                                            BackgroundColor="#EF4444"
+                                            StrokeShape="RoundRectangle 6"
+                                            Padding="4,2"
+                                            AbsoluteLayout.LayoutBounds="0,0,50,20"
+                                            AbsoluteLayout.LayoutFlags="None">
+                                        <Label Text="NUEVO"
+                                               TextColor="White"
+                                               FontSize="9"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+                                </AbsoluteLayout>
+
+                                <!-- Columna 1: Información textual usando VerticalStackLayout -->
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="4"
+                                                     VerticalOptions="Center">
+                                    <Label Text="{Binding Titulo}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#0F172A" />
+
+                                    <Label Text="{Binding Autor, StringFormat='Autor: {0}'}"
+                                           FontSize="13"
+                                           TextColor="#475569" />
+
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Border BackgroundColor="#E0F2FE"
+                                                StrokeShape="RoundRectangle 6"
+                                                Padding="6,2">
+                                            <Label Text="{Binding Categoria}"
+                                                   TextColor="#0284C7"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold" />
+                                        </Border>
+
+                                        <Label Text="{Binding Precio, StringFormat='${0:F2}'}"
+                                               TextColor="#16A34A"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

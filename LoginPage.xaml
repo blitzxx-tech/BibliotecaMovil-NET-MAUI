@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BibliotecaMovil.LoginPage"
+             Title="Iniciar Sesión"
+             BackgroundColor="#F0F9FF">
+
+    <!-- Implementación de Layout 5: AbsoluteLayout (Páginas 11 y 12) -->
+    <!-- Posicionamiento libre y superposición de elementos con AbsoluteLayout.LayoutBounds -->
+    <ScrollView>
+        <Grid HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+            <Border Stroke="#0284C7"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 24"
+                    BackgroundColor="#0F67FF"
+                    WidthRequest="380"
+                    HeightRequest="560"
+                    Shadow="{Shadow Brush=Black, Offset='0,10', Radius=20, Opacity=0.25}">
+
+                <AbsoluteLayout WidthRequest="380" HeightRequest="560">
+
+                    <!-- Encabezado / Logo UTSJR UAJ posicionado con LayoutBounds (Páginas 11 y 12) -->
+                    <VerticalStackLayout AbsoluteLayout.LayoutBounds="20,40,340,110"
+                                         Spacing="4"
+                                         HorizontalOptions="Center">
+                        <Image Source="dotnet_bot.png"
+                               HeightRequest="60"
+                               HorizontalOptions="Center" />
+                        <Label Text="UTSJR - UAJ"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                        <Label Text="Biblioteca Móvil · IDyGS"
+                               FontSize="12"
+                               TextColor="#E0F2FE"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Tarjeta interior blanca posicionada de forma absoluta -->
+                    <Border AbsoluteLayout.LayoutBounds="25,170,330,340"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="White"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="16" VerticalOptions="Center">
+
+                            <Label Text="Bienvenido de nuevo"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#0F172A"
+                                   HorizontalOptions="Center" />
+
+                            <!-- Entrada Usuario (Páginas 11 y 12) -->
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Usuario / Matrícula"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#475569" />
+                                <Entry x:Name="TxtUsuario"
+                                       Placeholder="Ingresa tu usuario"
+                                       Text="alumno.utsjr"
+                                       TextColor="#0F172A"
+                                       PlaceholderColor="#64748B"
+                                       BackgroundColor="#F8FAFC"
+                                       ClearButtonVisibility="WhileEditing" />
+                            </VerticalStackLayout>
+
+                            <!-- Entrada Contraseña (Páginas 11 y 12) -->
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Contraseña"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#475569" />
+                                <Entry x:Name="TxtPassword"
+                                       Placeholder="Ingresa tu contraseña"
+                                       IsPassword="True"
+                                       Text="123456"
+                                       TextColor="#0F172A"
+                                       PlaceholderColor="#64748B"
+                                       BackgroundColor="#F8FAFC" />
+                            </VerticalStackLayout>
+
+                            <!-- Botón Iniciar Sesión usando estilo personalizado (Páginas 15 y 16) -->
+                            <Button Text="Iniciar Sesión"
+                                    Style="{StaticResource BtnPrincipal}"
+                                    Clicked="OnIniciarSesionClicked"
+                                    Margin="0,8,0,0" />
+
+                            <Label Text="¿Olvidaste tu contraseña?"
+                                   FontSize="11"
+                                   TextColor="#0284C7"
+                                   HorizontalOptions="Center"
+                                   TextDecorations="Underline" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Insignia flotante / Badge en esquina superior derecha (Página 11) -->
+                    <Border AbsoluteLayout.LayoutBounds="260,25,95,28"
+                            BackgroundColor="#10B981"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="8,2">
+                        <Label Text="● MAUI 10"
+                               TextColor="White"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                </AbsoluteLayout>
+            </Border>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

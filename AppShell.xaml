@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BibliotecaMovil.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BibliotecaMovil"
+    Title="Biblioteca Móvil - .NET MAUI 10">
+
+    <TabBar>
+        <!-- Pestaña 1: Inicio de Sesión (AbsoluteLayout - Páginas 11 y 12) -->
+        <Tab Title="Login" Icon="dotnet_bot.png">
+            <ShellContent
+                Title="Login"
+                ContentTemplate="{DataTemplate local:LoginPage}"
+                Route="LoginPage" />
+        </Tab>
+
+        <!-- Pestaña 2: Catálogo de Libros (Grid + FlexLayout + HorizontalStackLayout + BindableLayout) -->
+        <Tab Title="Catálogo" Icon="dotnet_bot.png">
+            <ShellContent
+                Title="Catálogo"
+                ContentTemplate="{DataTemplate local:CatalogoPage}"
+                Route="CatalogoPage" />
+        </Tab>
+
+        <!-- Pestaña 3: Registro de Libro (VerticalStackLayout + Grid + HorizontalStackLayout) -->
+        <Tab Title="Registrar" Icon="dotnet_bot.png">
+            <ShellContent
+                Title="Registrar"
+                ContentTemplate="{DataTemplate local:RegistroPage}"
+                Route="RegistroPage" />
+        </Tab>
+    </TabBar>
+
+</Shell>
